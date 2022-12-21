@@ -1,0 +1,11 @@
+---
+- name: Ansible copy file to remote server
+  copy:
+    src: "{{ services_local_path }}/{{ service }}"
+    dest: "{{ services_remote_path }}"
+- name: "Install service {{ service }}"
+  docker_compose:
+    project_src: "{{ services_remote_path }}/{{ service }}"
+  register: output
+- debug:
+    var: output

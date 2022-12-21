@@ -1,0 +1,15 @@
+{
+  "git.enableSmartCommit": true,
+  "terminal.integrated.shell.windows": "C:\\cygwin64\\bin\\bash.exe",
+  "git.autofetch": true,
+  "terminal.integrated.automationProfile.linux": {},
+  "terminal.integrated.env.windows": {
+    "CHERE_INVOKING": "1"
+  },
+  "terminal.integrated.shellArgs.windows": ["--login", "-i"],
+  "[ansible]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "ansible.ansibleLint.enabled": false,
+  "editor.formatOnSave": true
+}
