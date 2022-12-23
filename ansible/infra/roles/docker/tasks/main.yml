@@ -18,7 +18,7 @@
     force_apt_get: true
 
 - name: Add Docker apt key.
-  ansible.builtin.get_url:
+  get_url:
     url: "{{ docker_repo_url }}/{{ ansible_distribution | lower }}/gpg"
     dest: /etc/apt/trusted.gpg.d/docker.asc
     mode: "0644"

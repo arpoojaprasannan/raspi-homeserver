@@ -1,5 +1,5 @@
 ---
-- name: Ensure pip_install_packages are installed.
+- name: Ensure pip packages are installed.
   pip:
     name:
       - docker
