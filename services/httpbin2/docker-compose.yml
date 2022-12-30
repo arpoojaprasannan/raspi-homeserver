@@ -4,4 +4,4 @@ services:
     image: kong/httpbin
     container_name: httpbin2
     ports:
-      - "9040:80"
+      - "9000:80"
