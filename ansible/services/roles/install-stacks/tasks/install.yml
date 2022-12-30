@@ -24,6 +24,7 @@
     validate_certs: false
     method: POST
     body_format: json
+    timeout: 120
     headers:
       X-API-Key: "{{ portainer_token }}"
     body: >
