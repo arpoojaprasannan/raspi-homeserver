@@ -7,10 +7,11 @@
   vars:
     pip_executable: /usr/bin/pip3
     docker_user: pi
-    docker_compose_version: "v2.14.2"
+    docker_compose_version: v2.14.2
 
   roles:
     - aptupgrade
+    - dependencies
     - pipinstall
     - docker
     - docker-compose

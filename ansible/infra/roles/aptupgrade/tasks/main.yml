@@ -2,9 +2,9 @@
 - name: Update and upgrade apt packages
   become: true
   apt:
-    upgrade: "yes"
+    upgrade: yes
     update_cache: true
-    cache_valid_time: 86400 #One day
+    cache_valid_time: 86400 # One day
     autoremove: yes
     force_apt_get: true
 

@@ -1,0 +1,46 @@
+---
+- name: Check if stack {{ stack.name }} exists
+  uri:
+    url: "{{ portainer_url }}/api/stacks"
+    validate_certs: false
+    method: GET
+    headers:
+      X-API-Key: "{{ portainer_token }}"
+    return_content: yes
+  register: _result
+- name: Set Stack ID (if exists)
+  set_fact:
+    stack_id: "{{ _result.json | json_query('[?Name==`{{ stack.name }}`] | [0].Id') }}"
+- name: Print Stack ID
+  debug:
+    msg: "{{ stack.name }} already exists with stack id - {{ stack_id }}"
+  when: stack_id | length != 0
+
+- name: Create new Stack {{ stack.name }}
+  uri:
+    url: "{{ portainer_url }}/api/stacks?type=2&method=repository&endpointId={{ endpoint_id }}"
+    validate_certs: false
+    method: POST
+    body_format: json
+    headers:
+      X-API-Key: "{{ portainer_token }}"
+    body: >
+      { 
+        "Name": "{{ stack.name }}",
+        "RepositoryURL": "{{ stack.repo }}",
+        "RepositoryReferenceName": "refs/heads/{{ stack.branch }}",
+        "ComposeFile": "{{ stack.compose_path }}",
+        "AdditionalFiles": [],
+        "RepositoryAuthentication": false,
+        "RepositoryUsername": "",
+        "RepositoryPassword": "",
+        "Env": [],
+        "AutoUpdate": { "Interval": "{{ update_interval }}m" }
+      }
+    return_content: yes
+  register: _result
+  when: stack_id | length == 0
+- name: Stack Output
+  debug:
+    var: _result
+  when: stack_id | length == 0

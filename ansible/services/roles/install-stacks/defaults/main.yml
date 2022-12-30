@@ -1,0 +1,11 @@
+---
+# portainer_url:
+# portainer_token:
+# endpoint_id:
+update_interval: 2
+stacks:
+  []
+  # - name: samba2
+  #   repo: https://github.com/dhananjaipai/samba
+  #   branch: main
+  #   compose_path: "./docker-compose.yml"

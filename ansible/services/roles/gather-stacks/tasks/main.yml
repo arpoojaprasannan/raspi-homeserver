@@ -1,0 +1,20 @@
+---
+- name: List Local Services
+  shell: |
+    cd "{{ services_local_path }}"
+    echo */
+  delegate_to: localhost
+  register: output
+- name: Create stacks object
+  set_fact:
+    stacks: '{{ stacks | default([]) | union([{
+      "name": item,
+      "repo": repo,
+      "branch": branch,
+      "compose_path": services_absolute_path + \"/\" + item + "/docker-compose.yml"
+      }]) }}'
+  with_items: "{{ services }}"
+  vars:
+    services: "{{ (output.stdout | regex_replace('/', '') | regex_replace('portainer ', '')).split(' ') }}"
+- debug:
+    var: stacks

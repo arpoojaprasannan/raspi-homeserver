@@ -1,0 +1,5 @@
+---
+services_local_path: ../../services
+repo: https://github.com/arpoojaprasannan/raspi-homeserver
+branch: release
+services_absolute_path: services

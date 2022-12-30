@@ -1,0 +1,145 @@
+---
+- name: Create portainer config directory
+  file:
+    path: ~/.portainer
+    state: directory
+    mode: 0755
+- name: Check local file for portainer token
+  command: cat ~/.portainer/authrc
+  register: portainerrc
+  check_mode: false
+  changed_when: false
+  failed_when: false
+- name: Set API Token variable from file (if exists)
+  set_fact:
+    portainer_token: "{{ portainerrc.stdout }}"
+  when: >
+    portainerrc.stdout is defined
+    and (portainerrc.stdout | length > 0)
+
+- name: Create Admin user - {{ portainer_user }}
+  uri:
+    url: "{{ portainer_url }}/api/users/admin/init"
+    validate_certs: false
+    method: POST
+    body_format: json
+    body: '{ "username": "{{ portainer_user }}", "password": "{{ portainer_password }}" }'
+    return_content: yes
+  register: _result
+  failed_when: _result.status != 200 and _result.status != 409
+  when: >
+    (portainer_token is not defined)
+    or (portainer_token | length == 0)
+- name: Login as Admin user - {{ portainer_user }}
+  uri:
+    url: "{{ portainer_url }}/api/auth"
+    validate_certs: false
+    method: POST
+    body_format: json
+    body: '{ "username": "{{ portainer_user }}", "password": "{{ portainer_password }}" }'
+    return_content: yes
+  register: _result
+  when: >
+    (portainer_token is not defined)
+    or (portainer_token | length == 0)
+- name: Generate API Token
+  uri:
+    url: "{{ portainer_url }}/api/users/1/tokens"
+    validate_certs: false
+    method: POST
+    body_format: json
+    headers:
+      Authorization: "Bearer {{ _result.json.jwt }}"
+    body: '{ "description": "ansible" }'
+    status_code: 201
+    return_content: yes
+  register: _result
+  when: >
+    (portainer_token is not defined)
+    or (portainer_token | length == 0)
+- name: Write Token to file
+  copy:
+    content: "{{ _result.content | from_json | json_query('rawAPIKey') }}"
+    dest: ~/.portainer/authrc
+  when: >
+    (portainer_token is not defined)
+    or (portainer_token | length == 0)
+- name: Set generated API Token variable
+  set_fact:
+    portainer_token: "{{ _result.content | from_json | json_query('rawAPIKey') }}"
+  when: >
+    (portainer_token is not defined)
+    or (portainer_token | length == 0)
+
+- name: Check local file for Endpoint ID
+  command: cat ~/.portainer/endpoint
+  register: endpointrc
+  check_mode: false
+  changed_when: false
+  failed_when: false
+- name: Set Endpoint ID variable from file (if exists)
+  set_fact:
+    endpoint_id: "{{ endpointrc.stdout }}"
+  when: >
+    endpointrc.stdout is defined
+    and (endpointrc.stdout | length > 0)
+
+- name: Check Existing Endpoints
+  uri:
+    url: "{{ portainer_url }}/api/endpoints"
+    validate_certs: false
+    method: GET
+    headers:
+      X-API-Key: "{{ portainer_token }}"
+    return_content: yes
+  register: _result
+  when: >
+    (endpoint_id is not defined)
+    or (endpoint_id | length == 0)
+- name: Write ID to file
+  copy:
+    content: "{{ _result.json | json_query('[?Name==`local`] | [0].Id') }}"
+    dest: ~/.portainer/endpoint
+  when: >
+    (endpoint_id is not defined)
+    or (endpoint_id | length == 0)
+- name: Set existing Endpoint ID variable
+  set_fact:
+    endpoint_id: "{{ _result.json | json_query('[?Name==`local`] | [0].Id') }}"
+  when: >
+    (endpoint_id is not defined)
+    or (endpoint_id | length == 0)
+
+- name: Create New Local Endpoint
+  uri:
+    url: "{{ portainer_url }}/api/endpoints"
+    validate_certs: false
+    method: POST
+    body_format: form-urlencoded
+    body:
+      Name: local
+      EndpointCreationType: 1
+      TagIds: "[]"
+      Gpus: "[]"
+      URL: ""
+      PublicURL: ""
+    headers:
+      X-API-Key: "{{ portainer_token }}"
+    return_content: yes
+  register: _result
+  when: >
+    (endpoint_id is not defined)
+    or (endpoint_id | length == 0)
+- name: Write ID to file
+  copy:
+    content: "{{ _result.json | json_query('Id') }}"
+    dest: ~/.portainer/endpoint
+  when: >
+    (endpoint_id is not defined)
+    or (endpoint_id | length == 0)
+- name: Set generated Endpoint ID variable
+  set_fact:
+    endpoint_id: "{{ _result.json | json_query('Id') }}"
+  when: >
+    (endpoint_id is not defined)
+    or (endpoint_id | length == 0)

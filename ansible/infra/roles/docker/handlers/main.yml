@@ -2,5 +2,5 @@
 - name: restart docker
   service:
     name: docker
-    state: "restarted"
+    state: restarted
   ignore_errors: true

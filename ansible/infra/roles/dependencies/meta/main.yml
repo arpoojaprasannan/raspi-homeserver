@@ -1,6 +1,7 @@
+---
 galaxy_info:
   author: Pooja
-  description: Raspi Docker Install Role
+  description: Raspi Role to install dependencies
   company: Home
   license: MIT
   min_ansible_version: "2.4"

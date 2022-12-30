@@ -1,0 +1,4 @@
+---
+portainer_url: https://localhost:9443
+portainer_user: admin
+portainer_password: SuperSecret!123
