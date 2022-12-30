@@ -5,7 +5,7 @@
 
   vars:
     services_local_path: ../../services
-    services_remote_path: /home/dhananjaipai/services
+    services_remote_path: /home/dhananjaipai
     service: portainer
     repo: https://github.com/arpoojaprasannan/raspi-homeserver
     branch: release

@@ -10,7 +10,9 @@
   register: _result
 - name: Set Stack ID (if exists)
   set_fact:
-    stack_id: "{{ _result.json | json_query('[?Name==`{{ stack.name }}`] | [0].Id') }}"
+    stack_id: "{{ _result.json | json_query(query) }}"
+  vars:
+    query: "[?Name=='{{ stack.name }}'] | [0].Id"
 - name: Print Stack ID
   debug:
     msg: "{{ stack.name }} already exists with stack id - {{ stack_id }}"

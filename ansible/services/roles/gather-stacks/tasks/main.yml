@@ -11,10 +11,10 @@
       "name": item,
       "repo": repo,
       "branch": branch,
-      "compose_path": services_absolute_path + \"/\" + item + "/docker-compose.yml"
+      "compose_path": services_absolute_path + "/" + item + "/docker-compose.yml"
       }]) }}'
   with_items: "{{ services }}"
   vars:
-    services: "{{ (output.stdout | regex_replace('/', '') | regex_replace('portainer ', '')).split(' ') }}"
+    services: '{{ (output.stdout | regex_replace(''/'', '''')).split('' '') | difference(["portainer"])}}'
 - debug:
     var: stacks
