@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  httpbin:
+    image: kong/httpbin
+    container_name: httpbin2
+    ports:
+      - "9040:80"
