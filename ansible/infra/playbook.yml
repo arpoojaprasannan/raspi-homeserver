@@ -8,10 +8,15 @@
     pip_executable: /usr/bin/pip3
     docker_user: pi
     docker_compose_version: v2.14.2
+    mounts:
+    - name: Seagate
+      uuid: 9C4AD6B64AD68C80
+      fstype: ntfs
 
   roles:
     - aptupgrade
     - dependencies
+    - mount-disks
     - pipinstall
     - docker
     - docker-compose

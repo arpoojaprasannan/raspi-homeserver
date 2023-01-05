@@ -7,6 +7,16 @@
     cache_valid_time: 86400 # One day
     autoremove: yes
     force_apt_get: true
+  register: apt_stream
+  async: 1000
+  poll: 0
+
+- name: 'apt stream async output'
+  async_status:
+    jid: "{{ apt_stream.ansible_job_id }}"
+  register: job_result
+  until: job_result.finished
+  retries: 30
 
 - name: Install unattended upgrades package.
   apt:
