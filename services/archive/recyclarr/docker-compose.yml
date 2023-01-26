@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr
+    container_name: recyclarr
+    environment:
+      - TZ
+    user: 1000:1000
+    volumes:
+      - ./config:/config
+    restart: unless-stopped

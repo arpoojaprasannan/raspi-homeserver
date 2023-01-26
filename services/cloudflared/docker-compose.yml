@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    command: tunnel run
+    volumes:
+      - ./creds.json:/etc/cloudflared/creds.json
+      - ./config.yml:/etc/cloudflared/config.yml
+    networks:
+      - tunnel_network
+    restart: unless-stopped
+networks:
+  tunnel_network:

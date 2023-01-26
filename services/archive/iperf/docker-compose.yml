@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  iperf:
+    labels:
+      - "lazytainer.marker=lazytainer"  # required label to sleep the container when not used
+      - "lazytainer.sleepMethod=stop"   # can be either "stop" or "pause", or left blank for stop
+    image: networkstatic/iperf3
+    container_name: iperf
+    command: -s
+    network_mode: container:lazytainer
+
+volumes:
+  scrutiny-config:

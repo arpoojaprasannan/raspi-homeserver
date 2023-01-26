@@ -1,0 +1,62 @@
+version: "3.9"
+services:
+  prometheus:
+    depends_on:
+      - node-exporter
+      - cadvisor
+      - speedtest-exporter
+    image: prom/prometheus:latest
+    container_name: prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+    restart: unless-stopped
+
+  node-exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: node-exporter
+    command:
+      - "--path.rootfs=/host"
+    volumes:
+      - "/:/host:ro,rslave"
+    ports:
+      - 9100:9100
+    restart: unless-stopped
+
+  speedtest-exporter:
+    image: danopstech/speedtest_exporter:latest
+    container_name: speedtest-exporter
+    ports:
+      - 9110:9090
+    restart: unless-stopped
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    volumes:
+      - /:/rootfs:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+    ports:
+      - 9080:8080
+    restart: unless-stopped
+
+  grafana:
+    depends_on:
+      - prometheus
+    image: grafana/grafana
+    container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${PASSWORD}
+    volumes:
+      - grafana-data:/var/lib/grafana
+    user: "1000"
+    ports:
+      - 3000:3000
+
+volumes:
+  grafana-data:

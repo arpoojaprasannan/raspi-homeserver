@@ -1,0 +1,118 @@
+command_timeout = 1000
+add_newline = false
+
+format = """
+[░▒▓](#93A1A1)\
+$env_var\
+[](fg:#93A1A1 bg:#22272e)\
+$directory\
+$git_branch\
+$git_status\
+$git_metrics\
+$fill\
+$azure\
+$aws\
+$gcloud\
+$kubernetes\
+$python\
+$nodejs\
+$terraform\
+$cmd_duration $jobs $time\
+$line_break\
+$status\
+$character
+"""
+
+[fill]
+symbol = ' '
+
+# Shows an icon that should be included by zshrc script based on the distribution or os
+[env_var.STARSHIP_PROMPT_DISTRO]
+format = '[ $env_value ](fg:#090c0c bg:#93A1A1)'
+variable = 'STARSHIP_PROMPT_DISTRO'
+disabled = false
+
+[directory]
+style = 'fg:#adbac7 bg:#22272e'
+format = '[ $path ]($style)[](fg:#22272e)'
+repo_root_style = 'fg:#539bf5 bg:#22272e'
+repo_root_format = '[ $before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path ]($style)[](fg:#22272e bg:#273449)[$read_only]($read_only_style)'
+truncation_length = 4
+fish_style_pwd_dir_length = 5
+truncate_to_repo = false
+truncation_symbol = '…/'
+
+[directory.substitutions]
+'Documents' = ' Documents'
+'Downloads' = ' Downloads'
+'Music' = ' Music'
+'Pictures' = ' Pictures'
+
+[git_branch]
+style = 'fg:#539bf5 bg:#273449 '
+format = '[ $symbol$branch(:$remote_branch) ]($style)'
+
+[git_status]
+style = 'bold fg:#768390 bg:#273449'
+format = '([\[$all_status$ahead_behind\] ]($style)[](fg:#273449 bg:#22272e)) '
+ahead = '⇡${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+behind = '⇣${count}'
+
+[git_metrics]
+disabled = false
+added_style = '#57ab5a'
+deleted_style = '#e5534b'
+format = '[+$added]($added_style)/[-$deleted]($deleted_style) '
+
+[azure]
+disabled = false
+style = 'blue bold'
+symbol = 'ﴃ '
+format = '[$symbol($subscription)]($style) '
+
+[aws]
+disabled = false
+style = 'bold #FB8532'
+symbol = ' '
+format = '[$symbol($profile )(\($region\) )(\[$duration\] )]($style)'
+
+[gcloud]
+symbol = ''
+format = '[$symbol$account(@$domain)(\($region\)) ]($style)'
+
+[kubernetes]
+disabled = false
+format = '[$symbol$context( \($namespace\)) ]($style)'
+detect_files = ['.k8s']
+
+[nodejs]
+format = '[$symbol($version )]($style)'
+
+[python]
+symbol = ' '
+format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+
+[terraform]
+symbol = ''
+style = 'fg:#844fba'
+format = '[$symbol .tf ]($style)'
+
+[cmd_duration]
+style = 'bold #DBAB09'
+format = '[$duration]($style) '
+
+[time]
+disabled = false
+time_format = '%R' # Hour:Minute Format
+style = 'bg:#1d2230'
+format = '[[  $time ](fg:#FAFBFC bg:#2d333b)]($style)'
+
+[line_break]
+disabled = false
+
+[status]
+symbol = '💥 '
+format = '[\[$symbol$common_meaning$signal_name$maybe_int\]]($style) '
+map_symbol = true
+disabled = false

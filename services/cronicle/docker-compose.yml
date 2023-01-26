@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  cronicle:
+    image: bluet/cronicle-docker:latest
+    container_name: cronicle
+    hostname: cronicle
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - cronicle-data:/opt/cronicle/data
+      - cronicle-plugins:/opt/cronicle/plugins
+      - cronicle-config:/app
+    ports:
+      - 3012:3012
+    restart: unless-stopped
+volumes:
+  cronicle-data:
+  cronicle-plugins:
+  cronicle-config:

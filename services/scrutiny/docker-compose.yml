@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  scrutiny:
+    labels:
+      - "lazytainer.marker=lazytainer"  # required label to sleep the container when not used
+      - "lazytainer.sleepMethod=stop"   # can be either "stop" or "pause", or left blank for stop
+    image: lscr.io/linuxserver/scrutiny:latest
+    container_name: scrutiny
+    environment:
+      - PUID
+      - PGID
+      - TZ
+      - SCRUTINY_API_ENDPOINT=http://localhost:8080
+      - SCRUTINY_WEB=true
+      - SCRUTINY_COLLECTOR=true
+    devices:
+      - /dev/sda1:/dev/sda1
+    volumes:
+      - scrutiny-config:/config
+      - /run/udev:/run/udev:ro
+    network_mode: container:lazytainer
+    ports:
+      - 3030:8080
+    cap_add:
+      - SYS_RAWIO
+      - SYS_ADMIN #optional
+
+volumes:
+  scrutiny-config:

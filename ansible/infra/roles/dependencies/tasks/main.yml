@@ -1,8 +1,0 @@
----
-- name: Install dependencies
-  apt:
-    name:
-      - git
-      - jq
-    state: present
-    force_apt_get: true

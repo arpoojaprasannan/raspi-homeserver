@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  duplicati:
+    image: lscr.io/linuxserver/duplicati:latest
+    container_name: duplicati
+    environment:
+      - PUID
+      - PGID
+      - TZ
+      - CLI_ARGS= #optional
+    volumes:
+      - duplicati-config:/config
+      # Uncomment for local backups; configure Google Drive backup within the application
+      # - </path/to/backups>:/backups
+      # - </path/to/source>:/source
+    ports:
+      - 8200:8200
+    restart: unless-stopped
+
+volumes:
+  duplicati-config:

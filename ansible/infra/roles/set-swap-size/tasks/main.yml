@@ -1,0 +1,35 @@
+---
+- name: Verify swap package
+  apt:
+    name: dphys-swapfile
+    state: present
+    update_cache: true
+
+- name: Update SWAP Size to {{swap_size}}
+  lineinfile:
+    path: /etc/dphys-swapfile
+    regexp: '^CONF_SWAPSIZE='
+    line: CONF_SWAPSIZE={{swap_size}}
+  register: swap_conf
+
+- name: Stop using current swap file
+  command:
+    cmd: dphys-swapfile swapoff
+  when: swap_conf.changed
+
+- name: Generate new swap file
+  command:
+    cmd: dphys-swapfile setup
+  when: swap_conf.changed
+  changed_when: "'generating swapfile' in swap_setup.stdout"
+
+- name: Activate swap
+  command:
+    cmd: dphys-swapfile swapon
+  when: swap_conf.changed
+  changed_when: false
+
+- name: Reboot to use updated swap
+  reboot:
+    msg: Rebooting due to swap size change
+  when: swap_conf.changed

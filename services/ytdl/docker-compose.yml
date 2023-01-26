@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  ytdl:
+      image: jauderho/yt-dlp
+      container_name: ytdl
+      entrypoint: 
+        - tail
+        - -f
+        - /dev/null
+      volumes:
+        - ./ytdl.conf:/etc/ytdl.conf
+        - ./ytdl-archive.txt:/downlodas/archive.txt
+        - ./ytdl-channels.txt:/downloads/channels.txt
+        - ${PATH_Downloads}:/downloads

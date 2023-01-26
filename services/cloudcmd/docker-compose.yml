@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  cloudcmd:
+    image: coderaiser/cloudcmd
+    container_name: cloudcmd
+    ports:
+      - 8800:8000
+    volumes:
+      - /:/mnt/fs

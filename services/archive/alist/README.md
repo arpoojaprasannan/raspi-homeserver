@@ -1,0 +1,1 @@
+To manage Alist, you must first obtain the default password generated at startup by running this command: `docker exec -it alist ./alist admin`.

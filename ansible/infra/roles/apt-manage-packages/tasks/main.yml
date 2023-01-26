@@ -1,0 +1,22 @@
+---
+- name: Install dependencies
+  apt:
+    name:
+      - libseccomp2 # Used by VPN client
+      - dnsutils # For dig and debugging
+      - zsh
+      - git
+      - wget
+      - curl
+      - jq
+      - python3-pip
+    state: present
+    force_apt_get: true
+
+- name: Delete packages
+  apt:
+    name:
+      - avahi-daemon
+    state: absent
+    purge: true
+    force_apt_get: true

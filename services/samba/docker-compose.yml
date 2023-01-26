@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  samba:
+    image: "servercontainers/samba:latest"
+    restart: "unless-stopped"
+    container_name: "samba"
+    ports:
+      - "137:137/udp"
+      - "138:138/udp"
+      - "139:139/tcp"
+      - "445:445"
+    volumes:
+      - "${MOUNT_PATH}:/shares/Seagate"
+    environment:
+      AVAHI_DISABLE: 1
+      SAMBA_CONF_LOG_LEVEL: 3
+
+      GROUP_home: 1500
+      UID_dhananjai: 1000
+      ACCOUNT_dhananjai: "${PASSWORD_dhananjai}"
+      GROUPS_dhananjai: "home"
+      UID_pooja: 1001
+      ACCOUNT_pooja: "${PASSWORD_pooja}"
+      GROUPS_pooja: "home"
+
+      SAMBA_VOLUME_CONFIG_public: "[PiFlix]; path=/shares/Seagate; valid users = dhananjai, pooja; guest ok = no; read only = no; browseable = yes; force group = home"
+      SAMBA_VOLUME_CONFIG_public_ro: "[PiFlix ReadOnly]; path=/shares/Seagate; guest ok = yes; read only = yes; browseable = yes; force group = home"

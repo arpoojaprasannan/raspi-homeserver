@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  webhook:
+    build: .
+    container_name: webhook
+    command: -verbose -hooks=/config/hooks.yml -hotreload
+    environment:
+      - TZ
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/bin/docker
+      - ./hooks.yml:/config/hooks.yml
+      - ./restart.sh:/config/restart.sh
+    ports:
+      - 9000:9000
+    restart: unless-stopped

@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  openbooks:
+    image: evanbuss/openbooks:latest
+    container_name: openbooks
+    command: --name my_irc_name --persist
+    volumes:
+      - ${PATH_Books}:/books
+    ports:
+      - 7780:80
+    restart: unless-stopped

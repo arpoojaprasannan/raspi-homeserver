@@ -1,0 +1,56 @@
+header: false
+footer: false
+columns: "4" # "auto" or number (must be a factor of 12: 1, 2, 3, 4, 6, 12)
+
+# Set the default layout and color scheme
+defaults:
+  layout: columns # Either 'columns', or 'list'
+  colorTheme: dark # One of 'auto', 'light', or 'dark'
+
+# Will load custom CSS files. Especially useful for custom icon sets.
+stylesheet:
+  - "assets/custom.css"
+
+services:
+  - name: "Media"
+    icon: "fas fa-play-circle"
+    items:
+      - name: "Sonarr"
+        logo: "assets/icons/sonarr.png"
+        type: "Sonarr"
+        apikey: "670db6b95dc04ddaa8b159a8bc2f9566"
+        url: "http://raspi.home:8989/"
+      - name: "Radarr"
+        logo: "assets/icons/radarr.png"
+        type: "Radarr"
+        apikey: "cb96e5b4b3a34e48b57a680f59ae49be"
+        url: "http://raspi.home:7878/"
+      - name: "Bazarr"
+        logo: "assets/icons/bazarr.png"
+        url: "http://raspi.home:6767/"
+  - name: "Downloads"
+    icon: "fa-solid fa-circle-nodes"
+    items:
+      - name: "Alist"
+        logo: "assets/icons/alist.svg"
+        subtitle: "File Manager"
+        url: "http://raspi.home:5244/"
+      - name: "QBitTorrent"
+        logo: "assets/icons/qbittorrent.png"
+        subtitle: "Torrent Client"
+        url: "http://raspi.home:5080/"
+      - name: "Prowlarr"
+        type: "Prowlarr"
+        apikey: "bdae5905795c443da1c984126714ea71"
+        logo: "assets/icons/prowlarr.png"
+        url: "http://raspi.home:9696/"
+      - name: "AriaNg"
+        logo: "assets/icons/ariang.png"
+        url: "http://raspi.home:6880/"
+  - name: "Other group"
+    icon: "fas fa-heartbeat"
+    items:
+      - name: "Pi-hole"
+        logo: "assets/icons/pihole.png"
+        url: "http://raspi.home:8080/admin"
+        type: "PiHole" 

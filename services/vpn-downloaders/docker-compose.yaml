@@ -1,0 +1,75 @@
+version: "3.9"
+services:
+  vpn:
+    image: qmcgaw/gluetun
+    container_name: vpn
+    environment:
+      - TZ
+      - VPN_TYPE=openvpn
+      - VPN_SERVICE_PROVIDER=private internet access
+      - OPENVPN_USER=${OPENVPN_USER}
+      - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
+      - SHADOWSOCKS=off
+      - SHADOWSOCKS_LOG=off
+      - HTTPPROXY=on
+      - HTTPPROXY_LOG=on
+    volumes:
+      - vpn-config:/gluetun
+    ports:
+      - 8888:8888/tcp   # Gluetun HTTP proxy
+      - 5080:5080       # QbitTorrent
+      - 6881:6881       # QbitTorrent
+      - 6881:6881/udp   # QbitTorrent
+      - 6767:6767       # Bazarr
+      - 7878:7878       # Radarr
+      - 8989:8989       # Sonarr
+      - 9696:9696       # Prowlarr
+      - 6800:6800       # Aria2
+      - 6880:6880       # Aria2Ng
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    restart: unless-stopped
+  qbittorrent:
+    depends_on: [vpn]
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID
+      - PGID
+      - TZ
+      - WEBUI_PORT
+    volumes:
+      - qbittorrent-config:/config
+      - ${PATH_Downloads}:/downloads
+    network_mode: service:vpn
+    restart: unless-stopped
+  aria2:
+    depends_on: [vpn]
+    container_name: aria2
+    image: p3terx/aria2-pro:latest
+    environment:
+      - PUID
+      - PGID
+      - TZ
+      - RPC_SECRET
+      - DISK_CACHE=64M
+    volumes:
+      - aria2-config:/config
+      - ${PATH_Downloads}:/downloads
+    network_mode: service:vpn
+    restart: unless-stopped
+  aria2-ng:
+    image: p3terx/ariang:latest
+    container_name: aria2-ng
+    command: --port 6880 --ipv6
+    network_mode: service:vpn
+    restart: unless-stopped
+
+volumes:
+  vpn-config:
+  qbittorrent-config:
+  pyload-config:
+  prowlarr-config:
+  aria2-config:

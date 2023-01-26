@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  bot:
+    image: dhananjaipai/coc-bot:latest
+    container_name: bot
+    environment:
+      - CLASH_API_TOKEN
+      - NGROK_TOKEN
+      - TELEGRAM_TOKEN
+      - CHAT_ID
+    ports:
+      - 3000:3000
+    volumes:
+      - coc-bot-data:/bot
+    restart: unless-stopped
+
+volumes:
+  coc-bot-data:

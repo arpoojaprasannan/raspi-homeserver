@@ -1,0 +1,7 @@
+- id: restart-container
+  execute-command: "restart.sh"
+  command-working-directory: "/config"
+  pass-arguments-to-command:
+    - source: "payload"
+      name: "monitor.name"
+  response-message: Restarting failed container

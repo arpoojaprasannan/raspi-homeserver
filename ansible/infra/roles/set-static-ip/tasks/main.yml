@@ -1,0 +1,9 @@
+---
+- name: Add config to dhcpd.conf
+  blockinfile:
+    path: /etc/dhcpcd.conf
+    block: |
+      interface eth0
+      static ip_address={{ static_ip }}/24
+      static routers={{ router_ip }}
+      static domain_name_servers=127.0.0.1 1.1.1.1

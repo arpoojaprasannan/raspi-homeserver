@@ -3,13 +3,15 @@ services:
   portainer:
     image: portainer/portainer-ce:latest
     container_name: portainer
-    security_opt:
-      - no-new-privileges:true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/localtime:/etc/localtime:ro
+      - portainer-data:/data
     ports:
       - 9443:9443
+    security_opt:
+      - no-new-privileges:true
     restart: unless-stopped
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./portainer-data:/data
-      - ./resolv.conf:/etc/resolv.conf
+
+volumes:
+  portainer-data:

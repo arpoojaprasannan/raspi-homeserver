@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  lazytainer:
+    container_name: lazytainer
+    image: ghcr.io/vmorganp/lazytainer:master
+    environment:
+      - PORT=3030               # comma separated list of ports...or just the one
+      - LABEL=lazytainer      # value of lazytainer.marker for other containers that lazytainer checks
+      # - TIMEOUT=30          # OPTIONAL number of seconds to let container idle
+      # - MINPACKETTHRESH=10  # OPTIONAL number of packets that must be recieved to keepalive/start container
+      # - POLLRATE=1          # OPTIONAL number of seconds to sleep between polls
+      # - INTERFACE=eth0      # OPTIONAL interface to listen on - use eth0 in most cases
+    ports:
+      - 5201:5201 # iperf3
+      - 3030:8080 # Scrutiny
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: always

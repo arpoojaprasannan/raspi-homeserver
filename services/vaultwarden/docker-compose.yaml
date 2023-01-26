@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    volumes:
+      - vaultwarden-data:/data
+      - dbeaver-config:/opt/cloudbeaver/workspace
+    ports:
+      - 8000:80
+    restart: unless-stopped
+
+volumes:
+  vaultwarden-data:

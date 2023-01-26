@@ -1,0 +1,60 @@
+---
+- name: Change user shell to zsh
+  become: yes
+  user:
+    name: "{{ zsh_user }}"
+    shell: /usr/bin/zsh
+
+- name: Check if starship is installed
+  become_user: "{{ zsh_user }}"
+  command: which starship
+  changed_when: false
+  failed_when: false
+  register: starship_installed
+- name: Install starship if not present | Download script
+  get_url: 
+    url: https://starship.rs/install.sh
+    dest: /tmp
+    mode: 755
+  when: starship_installed.rc not in [ 0 ]
+- name: Install starship if not present | Run script
+  become_user: "{{ zsh_user }}"
+  command: /tmp/install.sh --yes
+  when: starship_installed.rc not in [ 0 ]
+
+- name: Ensure ~/.config exists
+  file:
+    path: "/home/{{ zsh_user }}/.config"
+    state: directory
+- name: Add configuration file for Starship
+  become_user: "{{ zsh_user }}"
+  template:
+    src: "starship_toml.j2"
+    dest: "/home/{{ zsh_user }}/.config/starship.toml"
+    mode: 0644
+
+- name: Check if /home/{{ zsh_user }}/.oh-my-zsh exists
+  stat:
+    path: "/home/{{ zsh_user }}/.oh-my-zsh"
+  register: stat_oh_my_zsh_result
+- name: Install oh-my-zsh
+  git:
+    repo: https://github.com/robbyrussell/oh-my-zsh
+    dest: "/home/{{ zsh_user }}/.oh-my-zsh"
+  when: not stat_oh_my_zsh_result.stat.exists
+
+- name: Install evalcache plugin
+  git:
+    repo: https://github.com/mroth/evalcache
+    dest: "/home/{{ zsh_user }}/.oh-my-zsh/custom/plugins/evalcache"
+- name: Install zsh-autosuggestions plugin
+  git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions
+    dest: "/home/{{ zsh_user }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+
+- name: Copy .zshrc
+  become_user: "{{ zsh_user }}"
+  template:
+    src: "zshrc.j2"
+    dest: "/home/{{ zsh_user }}/.zshrc"
+    mode: 0644

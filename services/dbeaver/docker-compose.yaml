@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  dbeaver:
+    image: andrisasuke/cloudbeaver:latest
+    container_name: dbeaver
+    ports:
+      - 8978:8978
+    volumes:
+      - bot_coc-bot-data:/data/sqlite
+      - dbeaver-config:/opt/cloudbeaver/workspace
+    restart: unless-stopped
+
+volumes:
+  dbeaver-config:
+  bot_coc-bot-data:
+    external: true

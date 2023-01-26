@@ -1,0 +1,90 @@
+version: "3.9"
+services:
+  # Download Subtitles
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+    volumes:
+      - bazarr-config:/config
+      - ${PATH_Movies}:/movies #optional
+      - ${PATH_TVSeries}:/tv #optional
+    network_mode: container:vpn
+    restart: unless-stopped
+  # Movies Manager
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID
+      - PGID
+      - TZ
+    volumes:
+      - radarr-config:/config
+      - ${PATH_Movies}:/movies
+      - ${PATH_Downloads}:/downloads
+    network_mode: container:vpn
+    restart: unless-stopped
+  # TV Show Manager
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID
+      - PGID
+      - TZ
+    volumes:
+      - sonarr-config:/config
+      - ${PATH_TVSeries}:/tv
+      - ${PATH_Downloads}:/downloads
+    network_mode: container:vpn
+    restart: unless-stopped
+  # Torrent Indexer
+  prowlarr:
+    image: linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID
+      - PGID
+      - TZ
+    volumes:
+      - prowlarr-config:/config
+    network_mode: container:vpn
+    restart: unless-stopped
+  # Unzip Torrent Downloads (if needed)
+  # unpackerr:
+  #   image: golift/unpackerr
+  #   container_name: unpackerr
+  #   environment:
+  #     - TZ
+  #     # Radarr Config
+  #     - UN_RADARR_0_URL=http://localhost:7878
+  #     - UN_RADARR_0_API_KEY=${RADARR_KEY}
+  #     - UN_RADARR_0_PATHS_0=/downloads
+  #     - UN_RADARR_0_PROTOCOLS=torrent
+  #     - UN_RADARR_0_TIMEOUT=30s
+  #     - UN_RADARR_0_DELETE_ORIG=false
+  #     - UN_RADARR_0_DELETE_DELAY=15m
+  #     # Sonarr Config
+  #     - UN_SONARR_0_URL=http://localhost:8989
+  #     - UN_SONARR_0_API_KEY=${SONARR_KEY}
+  #     - UN_SONARR_0_PATHS_0=/downloads
+  #     - UN_SONARR_0_PROTOCOLS=torrent
+  #     - UN_SONARR_0_TIMEOUT=30s
+  #     - UN_SONARR_0_DELETE_ORIG=false
+  #     - UN_SONARR_0_DELETE_DELAY=15m
+  #   volumes:
+  #     - ${PATH_Downloads}:/downloads
+  #   user: 1000:1000
+  #   security_opt:
+  #     - no-new-privileges:true
+  #   restart: unless-stopped
+
+volumes:
+  bazarr-config:
+  radarr-config:
+  sonarr-config:
+  prowlarr-config:

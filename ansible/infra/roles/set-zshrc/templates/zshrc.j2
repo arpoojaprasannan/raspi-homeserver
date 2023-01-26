@@ -1,0 +1,54 @@
+setopt \
+  auto_cd \
+  auto_param_slash \
+  extended_glob \
+  extended_history \
+  hist_expire_dups_first \
+  hist_find_no_dups \
+  hist_ignore_dups \
+  hist_ignore_space \
+  hist_save_no_dups \
+  interactive_comments \
+  multios \
+  no_auto_remove_slash \
+  no_beep \
+  no_bg_nice \
+  no_flow_control \
+  no_list_types \
+  no_prompt_bang \
+  no_prompt_subst \
+  share_history
+
+# Load OhMyZsh Plugins
+export DISABLE_AUTO_UPDATE=true #Update manually to speed load times
+export ZSH_DOTENV_PROMPT=false
+export ZSH="$HOME/.oh-my-zsh"
+plugins=(
+  evalcache
+  dotenv
+  last-working-dir
+  zsh-autosuggestions
+)
+source $ZSH/oh-my-zsh.sh
+
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+_comp_options+=(globdots) # Include hidden files
+
+raspbian=""
+export STARSHIP_PROMPT_DISTRO="$raspbian"
+_evalcache starship init zsh
+
+export HISTSIZE='1000000000'
+export SAVEHIST='1000000000'
+
+# alias
+alias temp='/usr/bin/vcgencmd measure_temp'
+alias hs="history | grep --color -i"
+alias grep='grep --color'
+alias shutdown="sudo shutdown -h now"
+alias reboot="sudo reboot"
+alias dc="docker-compose"
+alias dcup="docker-compose up -d"
+alias dcdn="docker-compose down"
+alias dcupr="docker-compose up -d --force-recreate"

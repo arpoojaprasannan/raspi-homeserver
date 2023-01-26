@@ -1,2 +1,8 @@
 id_rsa
 .DS_Store
+.terraform/
+*.tfstate
+*.tfstate.*
+creds.json
+*/**/cookies
+*/**/.env

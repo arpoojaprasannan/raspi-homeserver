@@ -1,0 +1,14 @@
+tunnel: d75441b8-4260-490a-a154-1335c922df5f
+credentials-file: /etc/cloudflared/creds.json
+loglevel: debug
+ingress:
+  - hostname: "*"
+    path: "^/_healthcheck$"
+    service: http_status:200
+  - hostname: homer.djpai.dev
+    service: http://localhost
+  - hostname: sonarr.djpai.dev
+    service: http://192.168.2.39:8989
+  - hostname: radarr.djpai.dev
+    service: http://192.168.2.39:7878
+  - service: http_status:404

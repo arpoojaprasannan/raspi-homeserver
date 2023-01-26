@@ -1,0 +1,19 @@
+global:
+  scrape_interval: 30s
+  external_labels:
+    monitor: Monitoring
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: ["localhost:9090"]
+  - job_name: node
+    static_configs:
+      - targets: ["localhost:9100"]
+  - job_name: speed
+    scrape_interval: 30m
+    scrape_timeout:  60s
+    static_configs:
+      - targets: ["localhost:9110"]
+  - job_name: cAdvisor
+    static_configs:
+      - targets: ["localhost:9080"]

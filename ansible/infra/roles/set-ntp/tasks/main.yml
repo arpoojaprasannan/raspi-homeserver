@@ -1,0 +1,7 @@
+---
+- name: Ensure NTP Fallback URLs are set
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/timesyncd.conf
+    insertafter: '^#FallbackNTP'
+    regexp: '^FallbackNTP='
+    line: FallbackNTP=0.europe.pool.ntp.org 1.europe.pool.ntp.org 2.europe.pool.ntp.org 3.europe.pool.ntp.org
