@@ -1,0 +1,30 @@
+---
+- name: Check if Easytether is installed
+  command: which easytether-usb
+  changed_when: false
+  failed_when: false
+  register: easytether_installed
+- name: Install Easytether if not present | Download deb
+  get_url: 
+    url: http://www.mobile-stream.com/beta/raspbian/9/easytether_0.8.9_armhf.deb
+    dest: /tmp
+    mode: 755
+  when: easytether_installed.rc not in [ 0 ]
+- name: Install Easytether if not present | Install deb
+  become: yes
+  apt:
+    deb: /tmp/easytether_0.8.9_armhf.deb
+    install_recommends: true
+  when: easytether_installed.rc not in [ 0 ]
+- name: Setup MTU
+  ansible.builtin.lineinfile:
+    path: /etc/network/interfaces.d/tun-easytether
+    insertafter: 'gateway 192\.168\.117\.1'
+    regexp: '^\tmtu 1464'
+    line: "{{'\t'}}mtu 1464"
+- name: Allow IPV4 forwarding
+  ansible.builtin.lineinfile:
+    path: /etc/sysctl.conf
+    insertafter: '^#net.ipv4.ip_forward=1'
+    regexp: '^net.ipv4.ip_forward=1'
+    line: "net.ipv4.ip_forward=1"

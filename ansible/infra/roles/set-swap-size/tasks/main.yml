@@ -21,7 +21,6 @@
   command:
     cmd: dphys-swapfile setup
   when: swap_conf.changed
-  changed_when: "'generating swapfile' in swap_setup.stdout"
 
 - name: Activate swap
   command:

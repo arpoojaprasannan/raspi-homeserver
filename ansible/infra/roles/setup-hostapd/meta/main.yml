@@ -1,0 +1,8 @@
+galaxy_info:
+  author: Pai
+  description: Configure HostAPD on Raspi
+  company: Home
+  license: MIT
+  min_ansible_version: "2.4"
+  galaxy_tags: []
+dependencies: []

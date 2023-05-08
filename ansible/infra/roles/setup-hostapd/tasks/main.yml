@@ -1,0 +1,206 @@
+- name: Get speedtest gpg key
+  get_url:
+    url: https://packagecloud.io/ookla/speedtest-cli/gpgkey
+    dest: /etc/apt/trusted.gpg.d/speedtest-cli.asc
+    mode: 0644
+    force: true
+- name: Add speedtest apt repository
+  apt_repository:
+    repo: "deb [signed-by=/etc/apt/trusted.gpg.d/speedtest-cli.asc] https://packagecloud.io/ookla/speedtest-cli/debian/ bullseye main"
+    state: present
+    filename: ookla_speedtest-cli
+    update_cache: yes
+    mode: 0644
+    validate_certs: no
+- name: Install packages
+  apt:
+    name:
+      - dnsmasq
+      - hostapd
+      - lighttpd
+      - qrencode
+      - vnstat
+      - php7.4-cgi
+      - openvpn
+      - iptables-persistent
+      - debian-archive-keyring
+      - apt-transport-https
+      - speedtest
+    state: present
+    force_apt_get: true
+
+- name: Create symbolic link for fastcgi conf
+  file:
+    src: "/etc/lighttpd/conf-available/10-fastcgi.conf"
+    dest: "/etc/lighttpd/conf-enabled/10-fastcgi.conf"
+    state: link
+  notify: restart lighttpd
+- name: Create symbolic link for fastcgi-php conf
+  file:
+    src: "/etc/lighttpd/conf-available/15-fastcgi-php.conf"
+    dest: "/etc/lighttpd/conf-enabled/15-fastcgi-php.conf"
+    state: link
+  notify: restart lighttpd
+- name: Copy custom lighttpd configuration file
+  template:
+    src: "lighttpd_raspap_conf.j2"
+    dest: "/etc/lighttpd/conf-available/50-raspap-router.conf"
+    mode: 0644
+- name: Create symbolic link for lighttpd conf
+  file:
+    src: "/etc/lighttpd/conf-available/50-raspap-router.conf"
+    dest: "/etc/lighttpd/conf-enabled/50-raspap-router.conf"
+    state: link
+  notify: restart lighttpd
+
+- name: Creates RASPAP PHP Server directory
+  file:
+    path: "{{ web_dir }}"
+    state: directory
+- name: Set git path as safe
+  blockinfile:
+    path: /root/.gitconfig
+    block: |
+      [safe]
+        directory = {{ web_dir }}
+- name: Clone Git Repo to RASPAP PHP Server directory
+  git:
+    repo: https://github.com/RaspAP/raspap-webgui
+    dest: "{{ web_dir }}"
+    clone: yes
+    update: yes
+    force: yes
+- name: Delete incorrect regex check from charts file # To support tun-easytether
+  replace:
+    path: "{{ web_dir }}/ajax/bandwidth/get_bandwidth.php"
+    regexp: 'if \(strlen\(\$interface\) > IFNAMSIZ\) {\n\s*exit.*\n} elseif.*\n\s*exit.*;\s}'
+    replace: ''
+
+- name: Copy sudoers file to place
+  copy:
+    remote_src: true
+    src: "{{ web_dir }}/installers/raspap.sudoers"
+    dest: "/etc/sudoers.d/090_raspap"
+    mode: 0644
+
+- name: Creates RASPAP Config directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - /etc/raspap
+    - /etc/raspap/backups
+    - /etc/raspap/networking
+    - /etc/raspap/hostapd
+    - /etc/raspap/lighttpd
+    - /etc/raspap/openvpn
+
+- name: Copy raspap php file in place
+  copy:
+    remote_src: true
+    src: "{{ web_dir }}/raspap.php"
+    dest: "/etc/raspap/raspap.php"
+- name: Copy custom raspap configuration file in place
+  template:
+    src: "raspap_config.php.j2"
+    dest: "{{ web_dir }}/includes/config.php"
+    mode: 0644
+- name: Copy custom raspap defaults file in place
+  template:
+    src: "raspap_defaults.json.j2"
+    dest: "/etc/raspap/networking/defaults.json"
+    mode: 0644
+
+- name: Recursively change ownership of directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    recurse: yes
+    owner: www-data
+    group: www-data
+  with_items:
+    - "{{ web_dir }}"
+    - /etc/raspap
+
+- name: Copy hostapd control scripts to place
+  copy:
+    src: "{{ web_dir }}/installers/{{ item }}"
+    dest: "/etc/raspap/hostapd/"
+    remote_src: true
+    owner: root
+    group: www-data
+    mode: 0750
+  with_items:
+    - enablelog.sh
+    - disablelog.sh
+    - openvpnlog.sh
+    - servicestart.sh
+- name: Copy lighttpd control scripts to place
+  copy:
+    src: "{{ web_dir }}/installers/configport.sh"
+    dest: "/etc/raspap/lighttpd/"
+    remote_src: true
+    owner: root
+    group: www-data
+    mode: 0750
+- name: Copy openvpn control scripts to place
+  copy:
+    src: "{{ web_dir }}/installers/configauth.sh"
+    dest: "/etc/raspap/openvpn/"
+    remote_src: true
+    owner: root
+    group: www-data
+    mode: 0750
+
+- name: Copy raspap service for systemd
+  copy:
+    src: "{{ web_dir }}/installers/raspapd.service"
+    dest: "/lib/systemd/system/"
+    remote_src: true
+- name: Reload systemd configuration
+  systemd:
+    daemon_reload: true
+- name: Make sure raspap service unit is running
+  systemd:
+    name: raspapd.service
+    enabled: true
+    state: started
+    masked: no
+
+- name: Add config to dhcpd.conf
+  blockinfile:
+    path: /etc/dhcpcd.conf
+    block: |
+      option ntp_servers
+      nohook lookup-hostname
+
+      interface {{ interface }}
+        static ip_address={{ ap_router_ip }}/24
+        static routers={{ ap_router_ip }}
+        static domain_name_server=1.1.1.1 8.8.8.8
+        nohook wpa_supplicant
+        metric 405
+        nogateway
+- name: Copy custom dnsmaq configuration file in place
+  template:
+    src: "dnsmasq_wlan.j2"
+    dest: "/etc/dnsmasq.d/090_{{ interface }}"
+    mode: 0644
+- name: Copy custom hostapd configuration file in place
+  template:
+    src: "hostapd.conf.j2"
+    dest: "/etc/hostapd/hostapd.conf"
+    mode: 0644
+
+- name: HostAPD | Make sure the service is unmasked, started, and enabled
+  systemd:
+    name: hostapd
+    state: started
+    enabled: yes
+    masked: no
+  register: hostapd_service
+
+- name: Reboot device when hostapd changes
+  reboot:
+    msg: Rebooting due to hostapd change
+  when: hostapd_service.changed

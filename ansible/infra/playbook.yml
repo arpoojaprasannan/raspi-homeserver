@@ -7,26 +7,32 @@
   vars:
     zsh_user: pi
     docker_user: pi
-    docker_compose_version: v2.14.2
-    static_ip: "192.168.2.222"
-    router_ip: "192.168.2.254"
-    mounts:
-    - name: Seagate
-      uuid: 9C4AD6B64AD68C80
-      fstype: ntfs
+    docker_compose_version: v2.17.2 #https://docs.docker.com/compose/release-notes/
+    ##TASK - set-static-ip ##
+    # static_ip: "192.168.2.222"
+    # router_ip: "192.168.2.254"
+    ##TASK - mount-disks ##
+    # mounts:
+    # - name: Seagate
+    #   uuid: 9C4AD6B64AD68C80
+    #   fstype: ntfs
 
   roles:
-    - apt-upgrade
-    - apt-manage-packages
-    - set-zshrc
-    - set-motd
-    - set-static-ip
-    - set-ntp
-    - set-swap-size
-    - mount-disks
-    - pip-install
-    - docker
-    - docker-compose
+    # - apt-upgrade
+    # - apt-manage-packages
+    # - set-min-sdcard-write
+    # - set-zshrc
+    # - set-motd
+    # - set-ntp
+    # - install-easytether
+    # - install-brostrend
+    - setup-hostapd
+    ## - mount-disks
+    # - pip-install-docker-deps
+    # - docker
+    # - docker-compose
+    ## - set-static-ip
+    ## - set-swap-size
 
   post_tasks:
     - name: Check if reboot required

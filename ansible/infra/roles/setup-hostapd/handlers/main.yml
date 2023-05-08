@@ -1,0 +1,6 @@
+---
+- name: restart lighttpd
+  systemd:
+    name: lighttpd
+    state: restarted
+  ignore_errors: true

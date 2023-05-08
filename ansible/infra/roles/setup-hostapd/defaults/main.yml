@@ -1,0 +1,8 @@
+interface: "wlan0"
+ap_router_ip: "192.168.4.1"
+start_ip: "192.168.4.10"
+end_ip: "192.168.4.200"
+country_code: "NL"
+SSID: "RaspiAP"
+password: "ChangeMe"
+web_dir: /var/www/html

@@ -18,7 +18,6 @@
     mode: 755
   when: starship_installed.rc not in [ 0 ]
 - name: Install starship if not present | Run script
-  become_user: "{{ zsh_user }}"
   command: /tmp/install.sh --yes
   when: starship_installed.rc not in [ 0 ]
 
@@ -27,7 +26,6 @@
     path: "/home/{{ zsh_user }}/.config"
     state: directory
 - name: Add configuration file for Starship
-  become_user: "{{ zsh_user }}"
   template:
     src: "starship_toml.j2"
     dest: "/home/{{ zsh_user }}/.config/starship.toml"

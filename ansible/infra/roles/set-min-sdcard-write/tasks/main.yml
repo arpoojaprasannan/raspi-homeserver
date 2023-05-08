@@ -1,0 +1,60 @@
+---
+- name: Remove packages
+  apt:
+    name:
+      - dphys-swapfile
+      - logrotate
+      - rsyslog
+    state: absent
+    purge: true
+- name: Install iotop to check disk write
+  apt:
+    name:
+      - iotop 
+    state: present
+    force_apt_get: true
+
+- name: Remove dependencies that are no longer required
+  apt:
+    autoremove: yes
+- name: Disable bootlogd service
+  systemd:
+    name: bootlogd.service
+    masked: false
+  ignore_errors: true
+- name: Disable services
+  systemd:
+    name: "{{ item }}"
+    masked: false
+  with_items:
+    - bootlogs
+    - apt-daily.timer
+    - apt-daily.service
+    - apt-daily-upgrade.service
+    - apt-daily-upgrade.timer
+  ignore_errors: true
+
+- name: Disable SWAP
+  lineinfile:
+    path: /boot/cmdline.txt
+    regexp: "^(console=.*)( fsck.mode=skip noswap)?$"
+    backrefs: yes
+    line: '\1 fsck.mode=skip noswap'
+
+- name: Move tmp to tmpfs
+  blockinfile:
+    path: /etc/fstab
+    block: |
+      tmpfs /tmp tmpfs  nosuid,nodev 0 0
+      tmpfs /var/tmp tmpfs  nosuid,nodev 0 0
+      tmpfs /var/log tmpfs  nosuid,nodev 0 0
+      tmpfs /var/lib/misc tmpfs  nosuid,nodev 0 0
+      tmpfs /var/cache tmpfs  nosuid,nodev 0 0
+      tmpfs /var/lib/vnstat tmpfs  nosuid,nodev 0 0
+      tmpfs /var/php/sessions tmpfs  nosuid,nodev 0 0
+  register: fstab_updated
+
+- name: Reboot device when fstab_updated
+  reboot:
+    msg: Rebooting due to fstab change
+  when: fstab_updated.changed
