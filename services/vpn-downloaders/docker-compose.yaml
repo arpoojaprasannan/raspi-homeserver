@@ -7,23 +7,24 @@ services:
       - TZ
       - VPN_TYPE=openvpn
       - VPN_SERVICE_PROVIDER=private internet access
-      - OPENVPN_USER=${OPENVPN_USER}
-      - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
+      - OPENVPN_USER
+      - OPENVPN_PASSWORD
+      - SERVER_REGIONS
       - SHADOWSOCKS=off
       - SHADOWSOCKS_LOG=off
       - HTTPPROXY=on
-      - HTTPPROXY_LOG=on
+      - HTTPPROXY_LOG=off
     volumes:
       - vpn-config:/gluetun
     ports:
       - 8888:8888/tcp   # Gluetun HTTP proxy
       - 5080:5080       # QbitTorrent
-      - 6881:6881       # QbitTorrent
-      - 6881:6881/udp   # QbitTorrent
-      - 6767:6767       # Bazarr
-      - 7878:7878       # Radarr
-      - 8989:8989       # Sonarr
-      - 9696:9696       # Prowlarr
+      - ${WEBUI_PORT}:${WEBUI_PORT}       # QbitTorrent
+      - ${WEBUI_PORT}:${WEBUI_PORT}/udp   # QbitTorrent
+      # - 6767:6767       # Bazarr
+      # - 7878:7878       # Radarr
+      # - 8989:8989       # Sonarr
+      # - 9696:9696       # Prowlarr
       - 6800:6800       # Aria2
       - 6880:6880       # Aria2Ng
     cap_add:
@@ -66,10 +67,7 @@ services:
     command: --port 6880 --ipv6
     network_mode: service:vpn
     restart: unless-stopped
-
 volumes:
   vpn-config:
   qbittorrent-config:
-  pyload-config:
-  prowlarr-config:
   aria2-config:

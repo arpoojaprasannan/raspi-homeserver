@@ -1,0 +1,18 @@
+# https://www.raspberrypi.com/documentation/computers/configuration.html#adding-the-network-details-to-your-raspberry-pi
+---
+- name: Add country code to wpa_supplicant.conf
+  lineinfile:
+    path: /etc/wpa_supplicant/wpa_supplicant.conf 
+    regexp: "^country={{ country_code }}"
+    line: "country={{ country_code }}"
+
+- name: Add wifi passwords to wpa_supplicant.conf
+  blockinfile:
+    path: /etc/wpa_supplicant/wpa_supplicant.conf 
+    block: |
+      network={
+              ssid="{{ item.ssid }}"
+              psk="{{ item.password }}"
+              key_mgmt=WPA-PSK
+      }
+  with_items: "{{ wifis }}"

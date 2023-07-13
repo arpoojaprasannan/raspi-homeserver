@@ -1,9 +1,9 @@
 ---
+# https://askubuntu.com/questions/14365/mount-an-external-drive-at-boot-time-only-if-it-is-plugged-in
+# https://stackoverflow.com/questions/61134660/how-to-append-entries-in-etc-fstab-of-disks-using-ansible-playbook
 - name: Mount device by UUID
-  ansible.posix.mount:
-    path: "/mnt/{{item.name}}"
-    src: "UUID={{item.uuid}}"
-    fstype: "{{item.fstype}}"
-    state: mounted
+  lineinfile:
+    path: /etc/fstab
+    regexp: "^UUID={{item.uuid}}"
+    line: "UUID={{item.uuid}}    /mnt/{{item.name}} {{item.fstype}}  auto,nofail,noatime,rw,user    0   0"
   with_items: "{{ mounts }}"
-

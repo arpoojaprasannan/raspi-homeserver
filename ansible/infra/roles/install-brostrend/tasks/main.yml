@@ -1,25 +1,42 @@
 ---
-- name: Install Kernel Headers
+- name: Install Kernel Headers & Build Dependencies
   apt:
-    name: raspberrypi-kernel-headers
+    name: 
+     - raspberrypi-kernel-headers
+     - build-essential
+     - bc
+     - dkms
+     - git
     state: present
     force_apt_get: true
-- name: Download BrosTrend driver
+- name: Check if driver already installed (File /etc/modprobe.d/88x2bu.conf exists)
+  stat:
+    path: /etc/modprobe.d/88x2bu.conf
+  register: stat_result
+- name: Download 88x2bu driver, if not already installed
   get_url: 
-    url: https://linux.brostrend.com/rtl{{ chip }}-dkms.deb
+    url: https://github.com/morrownr/88x2bu-20210702/archive/main.zip
     validate_certs: false
     dest: /tmp
     mode: 755
-- name: Install BrosTrend driver
-  become: yes
-  apt:
-    deb: /tmp/rtl{{ chip }}-dkms.deb
-    install_recommends: false
-- name: Unload the competing in-kernel drivers
-  community.general.modprobe:
-    name: "{{ ikd }}"
-    state: absent
-- name: Add the kernel module
-  community.general.modprobe:
-    name: "{{ chip }}"
-    state: present
+  when: not stat_result.stat.exists
+- name: Unzip driver files, if not already installed
+  unarchive:
+    src: /tmp/main.zip
+    dest: /tmp
+    copy: no
+  when: not stat_result.stat.exists
+- name: Install the driver, if not already installed
+  shell: sh install-driver.sh NoPrompt
+  args:
+    chdir: /tmp/88x2bu-20210702-main/
+  when: not stat_result.stat.exists
+- name: Replace conf at /etc/modprobe.d/88x2bu.conf to use the AP Mode config
+  template:
+    src: "88x2bu_conf.j2"
+    dest: "/etc/modprobe.d/88x2bu.conf"
+    mode: 0644
+- name: Reboot if updated
+  reboot:
+    msg: Rebooting due to a kernel update with wifi
+  when: not stat_result.stat.exists

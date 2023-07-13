@@ -181,6 +181,12 @@
         nohook wpa_supplicant
         metric 405
         nogateway
+- name: Fix DNS in resolvconf configuration file
+  lineinfile:
+    path: /etc/resolvconf.conf
+    insertafter: '^#name_servers=127.0.0.1'
+    regexp: "^name_servers=1.1.1.1,8.8.8.8"
+    line: "name_servers=1.1.1.1,8.8.8.8"
 - name: Copy custom dnsmaq configuration file in place
   template:
     src: "dnsmasq_wlan.j2"
@@ -191,6 +197,26 @@
     src: "hostapd.conf.j2"
     dest: "/etc/hostapd/hostapd.conf"
     mode: 0644
+
+- name: Allow IPV4 forwarding
+  ansible.builtin.lineinfile:
+    path: /etc/sysctl.conf
+    insertafter: '^#net.ipv4.ip_forward=1'
+    regexp: '^net.ipv4.ip_forward=1'
+    line: "net.ipv4.ip_forward=1"
+- name: Enable IP Masquerading
+  shell: |
+    echo "Updating iptables rules"
+    readonly rulesv4="/etc/iptables/rules.v4"
+    if ! grep -q -- "-A POSTROUTING -j MASQUERADE" $rulesv4; then
+        echo "Add Rule masquerade all"
+        sudo iptables -t nat -A POSTROUTING -j MASQUERADE
+    fi
+    if ! grep -q -- "-A POSTROUTING -s {{ ap_subnet }} ! -d {{ ap_subnet }} -j MASQUERADE" $rulesv4; then
+        echo "Add Rule masquerade outside AP subnet"
+        sudo iptables -t nat -A POSTROUTING -s {{ ap_subnet }} ! -d {{ ap_subnet }} -j MASQUERADE
+    fi
+    sudo iptables-save | sudo tee $rulesv4
 
 - name: HostAPD | Make sure the service is unmasked, started, and enabled
   systemd:

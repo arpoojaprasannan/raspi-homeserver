@@ -9,9 +9,29 @@
       - wget
       - curl
       - jq
+      - nmap
       - python3-pip
+      - iperf # Verify LAN Speeds
     state: present
     force_apt_get: true
+
+- name: Configure GIT | Setup editor
+  git_config:
+    name: core.editor
+    scope: global
+    value: nano
+
+- name: Configure GIT | Setup username
+  git_config:
+    name: user.name
+    scope: global
+    value: "{{ git_user_name }}"
+
+- name: Configure GIT | Setup email
+  git_config:
+    name: user.email
+    scope: global
+    value: "{{ git_user_email }}"
 
 - name: Delete packages
   apt:

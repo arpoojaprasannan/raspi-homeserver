@@ -3,7 +3,7 @@
   blockinfile:
     path: /etc/dhcpcd.conf
     block: |
-      interface eth0
+      interface {{ interface }}
       static ip_address={{ static_ip }}/24
       static routers={{ router_ip }}
-      static domain_name_servers=127.0.0.1 1.1.1.1
+      static domain_name_servers={{ domain_name_servers }}

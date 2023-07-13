@@ -1,4 +1,6 @@
 log-facility=/var/log/dnsmasq.log
 conf-dir=/etc/dnsmasq.d
 interface={{ interface }}
-dhcp-range={{ start_ip }},{{ end_ip }},24h
+dhcp-range={{ dhcp_start_ip }},{{ dhcp_end_ip }},24h
+server=1.1.1.1
+server=1.0.0.1

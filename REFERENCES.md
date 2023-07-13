@@ -65,11 +65,11 @@ postal sendgrid alternative
 listmonk mailchimp alternative 
 activity watch 
 changedetection.io
-shlink vs yourls for custom url.shortner implementation 
+shlink vs yourls vs kutt for custom url.shortner implementation 
 docusaurus website builder + obsidian md editor
 
 Leantime vs OpenProject (Project Manager)
-Invoice Ninja (business series?)
+Invoice Ninja - For invoicing and management (business series?)
 Fider (Customer Suggestions?)
 LittleLink (self hosted linktree alternative)
 
@@ -204,6 +204,7 @@ home-assistant	Home Assistant
 homebox 
 Jitsi
 komga	A comics/mangas server to serve/stream pages via API
+kaizoku - Manga downloader
 lidarr	Looks and smells like Sonarr but made for music
 littlelink-server	A lightweight open source alternative to linktree
 miniflux	Miniflux is a minimalist and opinionated feed reader.
@@ -251,7 +252,13 @@ retropie vs batocera
 ESPHome - is a system to control your ESP8266
 
 3. Docker compose merge files
-
+terminal browser
+Keila - self hosted newsletter
+Keycloak - Open Source AD
+Kinto - Self hosted firebase alternative for JSON Data
+Kopia - Encrypted directory snapshots + Rclone to GDrive
+Kitchenowl - Grocy alternative with recipes
+Kiwix - Offline browser (for )
 Etherpad - real time collaboration self hosted notepad
 Ferdium(open source alternative) Franz 5 - chat messenger aggregator (WA, Telegram, FB Messenger, Slack etc)
 Forgejo - self hosted github
@@ -260,127 +267,41 @@ Octoprint
 FileBot - ultimate tv and anime renamer
 Fileflows - automations on files and directories (like nodered)
 Fleet - OSQuery manager (device fleet manager)
+Gameyfin - Jellyfin for games
+Hugo/Hexo - Blog framework
+Ghost - Portfolio website maker
+Glances - Complete monitoring solution (Like Prometheus)
+GLPI - Like SnipeIT (Asset management and Ticketing)
+Homebox - Like SnipeIT
+InvenTree - Like SnipeIT
+Grocy - Fridge asset management
+Handbrake/Tdarr
+Harbor - Docker/Helm Registry
+HaProxy - Nginx LB alternative
+GoAccess - Web Log analyser - dashboard for Nginx/S3/Cloudfront
+Gitea, Gogs - Self hosted Git
+Grist - Self hosted Notion-like Spreadsheets alternative
+Hasura - GraphQL Engine - Easy GraphQL for Postgres/DB Data
+rembo10/headphones - Arr for songs
+Hoppscotch - Postman alternative selfhosted
+Thunderclient - Postman VSCode extension
+Huginn - Self hosted IFTTT
+Humhub - Intranet Social Network (Knome)
+IHateMoney - Selfhosted splitwise
 
-https://bing.com/?q=github+freeipa
-https://bing.com/?q=github+freenas
-https://bing.com/?q=github+freenom
-https://bing.com/?q=github+freepbx
-https://bing.com/?q=github+frigate
-https://bing.com/?q=github+fronius
-https://bing.com/?q=github+funkwhale
-https://bing.com/?q=github+gameyfin
-https://bing.com/?q=github+gaps
-https://bing.com/?q=github+gatus
-https://bing.com/?q=github+geckoview
-https://bing.com/?q=github+gentoo
-https://bing.com/?q=github+ghost
-https://bing.com/?q=github+ghostfolio
-https://bing.com/?q=github+gigaset
-https://bing.com/?q=github+gitea
-https://bing.com/?q=github+gladys-assistant
-https://bing.com/?q=github+glances
-https://bing.com/?q=github+glpi
-https://bing.com/?q=github+goaccess
-https://bing.com/?q=github+gogs
-https://bing.com/?q=github+golang
-https://bing.com/?q=github+grav
-https://bing.com/?q=github+graylog
-https://bing.com/?q=github+graylog-red
-https://bing.com/?q=github+grist
-https://bing.com/?q=github+grocy
-https://bing.com/?q=github+hammond
-https://bing.com/?q=github+handbrake
-https://bing.com/?q=github+haproxy
-https://bing.com/?q=github+harbor
-https://bing.com/?q=github+hard-forum
-https://bing.com/?q=github+harvester
-https://bing.com/?q=github+hasura
-https://bing.com/?q=github+hatsh
-https://bing.com/?q=github+hdhomerun
-https://bing.com/?q=github+headphones
-https://bing.com/?q=github+helium-token
-https://bing.com/?q=github+hetzner
-https://bing.com/?q=github+hexo
-https://bing.com/?q=github+hikvision
-https://bing.com/?q=github+home-assistant
-https://bing.com/?q=github+home-assistant-circle
-https://bing.com/?q=github+homebox
-https://bing.com/?q=github+homebridge
-https://bing.com/?q=github+homepage
-https://bing.com/?q=github+homer
-https://bing.com/?q=github+homeseer
-https://bing.com/?q=github+honeygain
-https://bing.com/?q=github+hoppscotch
-https://bing.com/?q=github+hubitat
-https://bing.com/?q=github+huginn
-https://bing.com/?q=github+hugo
-https://bing.com/?q=github+humhub
-https://bing.com/?q=github+hyperion
-https://bing.com/?q=github+icecast
-https://bing.com/?q=github+icinga
-https://bing.com/?q=github+idrac
-https://bing.com/?q=github+ihatemoney
-https://bing.com/?q=github+ilo
-https://bing.com/?q=github+immich
-https://bing.com/?q=github+infoblox
-https://bing.com/?q=github+instagram
-https://bing.com/?q=github+inventree
-https://bing.com/?q=github+invidious
-https://bing.com/?q=github+invoiceninja
-https://bing.com/?q=github+iobroker
-https://bing.com/?q=github+ionos
-https://bing.com/?q=github+ipboard
-https://bing.com/?q=github+ipcamtalk
-https://bing.com/?q=github+irc
-https://bing.com/?q=github+iredmail
-https://bing.com/?q=github+ispconfig
-https://bing.com/?q=github+ispy
-https://bing.com/?q=github+jeedom
-https://bing.com/?q=github+jelu
-https://bing.com/?q=github+jenkins
-https://bing.com/?q=github+joal
-https://bing.com/?q=github+joplin
-https://bing.com/?q=github+julia
-https://bing.com/?q=github+kaizoku
-https://bing.com/?q=github+kamatera
-https://bing.com/?q=github+kapacitor
-https://bing.com/?q=github+kasm
-https://bing.com/?q=github+kasm-workspaces
-https://bing.com/?q=github+kaufland
-https://bing.com/?q=github+keila
-https://bing.com/?q=github+keycloak
-https://bing.com/?q=github+kimai
-https://bing.com/?q=github+kinto
-https://bing.com/?q=github+kitana
-https://bing.com/?q=github+kitchenowl
-https://bing.com/?q=github+kiwix
-https://bing.com/?q=github+ko-fi
-https://bing.com/?q=github+koel
-https://bing.com/?q=github+koillection
-https://bing.com/?q=github+kopia
-https://bing.com/?q=github+kotlin
-https://bing.com/?q=github+kutt
-https://bing.com/?q=github+lanraragi
-https://bing.com/?q=github+leanote
-https://bing.com/?q=github+leantime
+iSpy - Network Video Recorder(NVR)
+
 https://bing.com/?q=github+lemonldapng
 https://bing.com/?q=github+libreddit
 https://bing.com/?q=github+librenms
 https://bing.com/?q=github+librephotos
 https://bing.com/?q=github+librespeed
 https://bing.com/?q=github+librex
-https://bing.com/?q=github+lidarr
 https://bing.com/?q=github+lightning-terminal
-https://bing.com/?q=github+lighttpd
 https://bing.com/?q=github+linkace
 https://bing.com/?q=github+linkding
-https://bing.com/?q=github+linuxserver-io
 https://bing.com/?q=github+listmonk
 https://bing.com/?q=github+lnbits
-https://bing.com/?q=github+logitech
-https://bing.com/?q=github+logitech-gaming
-https://bing.com/?q=github+logitech-legacy
-https://bing.com/?q=github+logstash
 https://bing.com/?q=github+loki
 https://bing.com/?q=github+longhorn
 https://bing.com/?q=github+lsio
@@ -396,8 +317,6 @@ https://bing.com/?q=github+mak
 https://bing.com/?q=github+manjaro
 https://bing.com/?q=github+mantisbt
 https://bing.com/?q=github+marginalia
-https://bing.com/?q=github+mariadb
-https://bing.com/?q=github+mastodon
 https://bing.com/?q=github+matomo
 https://bing.com/?q=github+matrix
 https://bing.com/?q=github+matrix-synapse
@@ -417,31 +336,20 @@ https://bing.com/?q=github+meshcentral
 https://bing.com/?q=github+metabase
 https://bing.com/?q=github+metube
 https://bing.com/?q=github+microbin
-https://bing.com/?q=github+microsoft-365
-https://bing.com/?q=github+microsoft-todo
 https://bing.com/?q=github+mikrotik
 https://bing.com/?q=github+minecraft
 https://bing.com/?q=github+mineos
 https://bing.com/?q=github+miniflux
-https://bing.com/?q=github+minio
 https://bing.com/?q=github+mkdocs
-https://bing.com/?q=github+mobaxterm
 https://bing.com/?q=github+mobotix
 https://bing.com/?q=github+mojeek
 https://bing.com/?q=github+molecule
-https://bing.com/?q=github+mongodb
-https://bing.com/?q=github+monica
 https://bing.com/?q=github+monit
 https://bing.com/?q=github+moodle
-https://bing.com/?q=github+motioneye
 https://bing.com/?q=github+mpm
-https://bing.com/?q=github+mqtt
 https://bing.com/?q=github+mstream
 https://bing.com/?q=github+musicbrainz
-https://bing.com/?q=github+mylar
-https://bing.com/?q=github+mysql
 https://bing.com/?q=github+n8n
-https://bing.com/?q=github+nagios
 https://bing.com/?q=github+navidrome
 https://bing.com/?q=github+ncore
 https://bing.com/?q=github+neko
@@ -462,9 +370,6 @@ https://bing.com/?q=github+newsblur
 https://bing.com/?q=github+nextdns
 https://bing.com/?q=github+nitter
 https://bing.com/?q=github+nocodb
-https://bing.com/?q=github+node.js
-https://bing.com/?q=github+nodejs-alt
-https://bing.com/?q=github+nodered
 https://bing.com/?q=github+nomad
 https://bing.com/?q=github+nomie
 https://bing.com/?q=github+notifiarr
@@ -473,8 +378,6 @@ https://bing.com/?q=github+ntfy
 https://bing.com/?q=github+ntop
 https://bing.com/?q=github+nxfilter
 https://bing.com/?q=github+nxlog
-https://bing.com/?q=github+nzbget
-https://bing.com/?q=github+nzbhydra
 https://bing.com/?q=github+obico
 https://bing.com/?q=github+obitalk
 https://bing.com/?q=github+observium
@@ -488,49 +391,34 @@ https://bing.com/?q=github+onlyoffice
 https://bing.com/?q=github+openeats
 https://bing.com/?q=github+openhab
 https://bing.com/?q=github+openmaptiler
-https://bing.com/?q=github+openmediavault
 https://bing.com/?q=github+opensearch
-https://bing.com/?q=github+openspeedtest
 https://bing.com/?q=github+opensprinkler
 https://bing.com/?q=github+opensuse
-https://bing.com/?q=github+oracle-cloud
 https://bing.com/?q=github+organizr
 https://bing.com/?q=github+oscarr
 https://bing.com/?q=github+osticket
 https://bing.com/?q=github+outline
 https://bing.com/?q=github+overclockers
-https://bing.com/?q=github+overseerr
 https://bing.com/?q=github+ovh
 https://bing.com/?q=github+ovirt
-https://bing.com/?q=github+owncloud
 https://bing.com/?q=github+ownphotos
 https://bing.com/?q=github+pagerduty
 https://bing.com/?q=github+pale-moon
-https://bing.com/?q=github+paloaltonetworks
-https://bing.com/?q=github+paperless
-https://bing.com/?q=github+paperless-ng
-https://bing.com/?q=github+papermerge
 https://bing.com/?q=github+partkeepr
 https://bing.com/?q=github+pastatool
 https://bing.com/?q=github+pastey
 https://bing.com/?q=github+peertube
 https://bing.com/?q=github+petio
-https://bing.com/?q=github+pfsense
-https://bing.com/?q=github+pgadmin
 https://bing.com/?q=github+phantombot
 https://bing.com/?q=github+photonix
 https://bing.com/?q=github+photoprism
 https://bing.com/?q=github+photostructure
 https://bing.com/?q=github+photoview
-https://bing.com/?q=github+php
 https://bing.com/?q=github+phpipam
 https://bing.com/?q=github+phpldapadmin
-https://bing.com/?q=github+phpmyadmin
 https://bing.com/?q=github+pi-alert
 https://bing.com/?q=github+pi-alert-dark
 https://bing.com/?q=github+piaware
-https://bing.com/?q=github+pihole
-https://bing.com/?q=github+pihole-unbound
 https://bing.com/?q=github+pikvm
 https://bing.com/?q=github+pingdom
 https://bing.com/?q=github+pivpn
@@ -540,10 +428,6 @@ https://bing.com/?q=github+planka
 https://bing.com/?q=github+plausible
 https://bing.com/?q=github+pleroma
 https://bing.com/?q=github+plesk
-https://bing.com/?q=github+plex
-https://bing.com/?q=github+plex-new
-https://bing.com/?q=github+plex-new-transparent
-https://bing.com/?q=github+plex-square
 https://bing.com/?q=github+plexdrive
 https://bing.com/?q=github+plexrequests
 https://bing.com/?q=github+plume
@@ -552,11 +436,8 @@ https://bing.com/?q=github+poly
 https://bing.com/?q=github+polycom
 https://bing.com/?q=github+polycom-alt
 https://bing.com/?q=github+polywork
-https://bing.com/?q=github+portainer
-https://bing.com/?q=github+portainer-v2
 https://bing.com/?q=github+portus
 https://bing.com/?q=github+poste
-https://bing.com/?q=github+postgres
 https://bing.com/?q=github+powerdns
 https://bing.com/?q=github+powerpanel
 https://bing.com/?q=github+premium-mobile
@@ -565,7 +446,6 @@ https://bing.com/?q=github+premium-mobile-v2
 https://bing.com/?q=github+printer
 https://bing.com/?q=github+pritunl
 https://bing.com/?q=github+privacyidea
-https://bing.com/?q=github+private-internet-access
 https://bing.com/?q=github+privatebin
 https://bing.com/?q=github+projectsend
 https://bing.com/?q=github+prometheus
@@ -581,7 +461,6 @@ https://bing.com/?q=github+putty
 https://bing.com/?q=github+pwndrop
 https://bing.com/?q=github+pwpush
 https://bing.com/?q=github+pydio
-https://bing.com/?q=github+pyload
 https://bing.com/?q=github+python
 https://bing.com/?q=github+qbittorrent
 https://bing.com/?q=github+qinglong
@@ -600,7 +479,6 @@ https://bing.com/?q=github+raspberrypi
 https://bing.com/?q=github+rathole
 https://bing.com/?q=github+rclone
 https://bing.com/?q=github+rdt-client
-https://bing.com/?q=github+readarr
 https://bing.com/?q=github+readthedocs
 https://bing.com/?q=github+real-debrid
 https://bing.com/?q=github+recalbox
@@ -740,7 +618,6 @@ https://bing.com/?q=github+telegraf
 https://bing.com/?q=github+telegram
 https://bing.com/?q=github+teleport
 https://bing.com/?q=github+tenda
-https://bing.com/?q=github+terraform
 https://bing.com/?q=github+teslamate
 https://bing.com/?q=github+thanos
 https://bing.com/?q=github+theia
@@ -751,13 +628,11 @@ https://bing.com/?q=github+timetagger
 https://bing.com/?q=github+tinypilot
 https://bing.com/?q=github+tinytinyrss
 https://bing.com/?q=github+tipi
-https://bing.com/?q=github+todoist
 https://bing.com/?q=github+tooljet
 https://bing.com/?q=github+tplink
 https://bing.com/?q=github+traccar
 https://bing.com/?q=github+traefik
 https://bing.com/?q=github+trakt
-https://bing.com/?q=github+transmission
 https://bing.com/?q=github+trilium
 https://bing.com/?q=github+truenas
 https://bing.com/?q=github+truenas-enterprise
@@ -769,32 +644,17 @@ https://bing.com/?q=github+tubesync
 https://bing.com/?q=github+tux
 https://bing.com/?q=github+tvheadend
 https://bing.com/?q=github+tvp-vod
-https://bing.com/?q=github+twitch
-https://bing.com/?q=github+twitter
-https://bing.com/?q=github+typescript
 https://bing.com/?q=github+typo3
-https://bing.com/?q=github+ubiquiti
-https://bing.com/?q=github+ubiquiti-networks
-https://bing.com/?q=github+ubooquity
-https://bing.com/?q=github+ubuntu
-https://bing.com/?q=github+ubuntu-alt
 https://bing.com/?q=github+uc
-https://bing.com/?q=github+udemy-learning
 https://bing.com/?q=github+ultimateguitar
 https://bing.com/?q=github+umbrel
 https://bing.com/?q=github+unami
-https://bing.com/?q=github+unifi
-https://bing.com/?q=github+unifi-controller
-https://bing.com/?q=github+unifi-protect
-https://bing.com/?q=github+unificontroller
 https://bing.com/?q=github+uninterruptible-power-supply
 https://bing.com/?q=github+universal-media-server
 https://bing.com/?q=github+unmanic
-https://bing.com/?q=github+unraid
 https://bing.com/?q=github+untangle
 https://bing.com/?q=github+updog
 https://bing.com/?q=github+upsnap
-https://bing.com/?q=github+uptime-kuma
 https://bing.com/?q=github+urbackup
 https://bing.com/?q=github+valetudo
 https://bing.com/?q=github+vault
@@ -837,23 +697,10 @@ https://bing.com/?q=github+wekan
 https://bing.com/?q=github+wetty
 https://bing.com/?q=github+wger
 https://bing.com/?q=github+wggenweb
-https://bing.com/?q=github+whatsapp
-https://bing.com/?q=github+whisparr
 https://bing.com/?q=github+whoami
-https://bing.com/?q=github+whooglesearch
-https://bing.com/?q=github+wikijs
-https://bing.com/?q=github+windows-11
-https://bing.com/?q=github+windows-7
-https://bing.com/?q=github+windows-95
-https://bing.com/?q=github+windows-98
-https://bing.com/?q=github+windows-admin-center
-https://bing.com/?q=github+windows-vista
-https://bing.com/?q=github+windows-xp
-https://bing.com/?q=github+wireguard
 https://bing.com/?q=github+wizarr
 https://bing.com/?q=github+wled
 https://bing.com/?q=github+woodpecker-ci
-https://bing.com/?q=github+wordpress
 https://bing.com/?q=github+workadventure
 https://bing.com/?q=github+xbackbone
 https://bing.com/?q=github+xbrowsersync
@@ -865,9 +712,6 @@ https://bing.com/?q=github+xmrig
 https://bing.com/?q=github+xteve
 https://bing.com/?q=github+xwiki
 https://bing.com/?q=github+yacht
-https://bing.com/?q=github+yahoo
-https://bing.com/?q=github+yahoo-mail
-https://bing.com/?q=github+yandex
 https://bing.com/?q=github+yarn-social
 https://bing.com/?q=github+ymarks
 https://bing.com/?q=github+ynab

@@ -24,4 +24,4 @@ services:
       GROUPS_pooja: "home"
 
       SAMBA_VOLUME_CONFIG_public: "[PiFlix]; path=/shares/Seagate; valid users = dhananjai, pooja; guest ok = no; read only = no; browseable = yes; force group = home"
-      SAMBA_VOLUME_CONFIG_public_ro: "[PiFlix ReadOnly]; path=/shares/Seagate; guest ok = yes; read only = yes; browseable = yes; force group = home"
+      # SAMBA_VOLUME_CONFIG_public_ro: "[PiFlix ReadOnly]; path=/shares/Seagate; guest ok = yes; read only = yes; browseable = yes; force group = home"

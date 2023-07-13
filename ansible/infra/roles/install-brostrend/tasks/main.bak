@@ -1,0 +1,26 @@
+---
+- name: Install Kernel Headers
+  apt:
+    name: 
+     - raspberrypi-kernel-headers
+    state: present
+    force_apt_get: true
+- name: Download BrosTrend driver
+  get_url: 
+    url: https://linux.brostrend.com/rtl{{ chip }}-dkms.deb
+    validate_certs: false
+    dest: /tmp
+    mode: 755
+- name: Install BrosTrend driver
+  become: yes
+  apt:
+    deb: /tmp/rtl{{ chip }}-dkms.deb
+    install_recommends: false
+- name: Unload the competing in-kernel drivers
+  community.general.modprobe:
+    name: "{{ ikd }}"
+    state: absent
+- name: Add the kernel module
+  community.general.modprobe:
+    name: "{{ chip }}"
+    state: present

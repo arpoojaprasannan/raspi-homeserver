@@ -28,7 +28,7 @@
   },
   "dnsmasq": {
     "{{ interface }}": {
-      "dhcp-range": [ "{{ start_ip }},{{ end_ip }},255.255.255.0,12h" ]
+      "dhcp-range": [ "{{ dhcp_start_ip }},{{ dhcp_end_ip }},255.255.255.0,12h" ]
     },
     "uap0": {
       "dhcp-range": [ "192.168.50.50,192.168.50.150,12h" ]
