@@ -4,6 +4,7 @@
     name:
       - docker
       - PyYAML
-      - docker-compose
     state: latest
     executable: "{{ pip_executable }}"
+  environment:
+    PIP_BREAK_SYSTEM_PACKAGES: 1 
