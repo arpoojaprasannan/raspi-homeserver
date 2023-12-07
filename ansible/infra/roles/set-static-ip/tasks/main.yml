@@ -1,9 +1,3 @@
----
-- name: Add config to dhcpd.conf
-  blockinfile:
-    path: /etc/dhcpcd.conf
-    block: |
-      interface {{ interface }}
-      static ip_address={{ static_ip }}/24
-      static routers={{ router_ip }}
-      static domain_name_servers={{ domain_name_servers }}
+# sudo nmcli c mod "{{ ssid }}" ipv4.addresses {{ static_ip }}/24 ipv4.method manual
+# sudo nmcli con mod "{{ ssid }}" ipv4.gateway {{ router_ip }}
+# sudo nmcli con mod "{{ ssid }}" ipv4.dns "{{ domain_name_servers }}"

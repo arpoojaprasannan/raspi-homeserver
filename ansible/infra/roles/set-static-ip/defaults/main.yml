@@ -1,4 +1,4 @@
-interface: "eth0"
+ssid: "PaiSpot"
 static_ip: "192.168.2.222"
 router_ip: "192.168.2.254"
-domain_name_servers: 127.0.0.1 1.1.1.1
+domain_name_servers: "1.1.1.1,8.8.8.8"

@@ -37,9 +37,9 @@
         name: set-zshrc
       vars:
         zsh_user: pi
-    - name: Install BrosTred Wifi Adaptor Drivers
-      include_role:
-        name: install-brostrend
+    # - name: Install BrosTred Wifi Adaptor Drivers
+    #   include_role:
+    #     name: install-brostrend
     # - name: Add a Static IP DHCP Configuration for RASPI (Use Raspi as a client)
     #   include_role:
     #     name: set-static-ip
@@ -47,25 +47,25 @@
     #     interface: eth0
     #     static_ip: 192.168.2.222
     #     router_ip: 192.168.2.254
-    #     domain_name_servers: 1.1.1.1 8.8.8.8
+    #     domain_name_servers: 1.1.1.1,8.8.8.8
     # - name: Install Easytether to tunnel data through Mobile if Tethering is not allowed
     #   include_role:
     #     name: install-easytether
-    - name: Install RaspAP and Configure Raspi as a Hotspot Router
-      include_role:
-        name: setup-hostapd
-      vars:
-        interface: "wlan1"
-        wlan_device: "brostrend"
-        wifi_mode: "5GHz"
-        ap_subnet: "192.168.0.0/24"
-        ap_router_ip: "192.168.0.1"
-        dhcp_start_ip: "192.168.0.10"
-        dhcp_end_ip: "192.168.0.200"
-        country_code: "NL"
-        SSID: "PaiFi"
-        password: "Pai@Almere"
-        web_dir: /var/www/html
+    # - name: Install RaspAP and Configure Raspi as a Hotspot Router
+    #   include_role:
+    #     name: setup-hostapd
+    #   vars:
+    #     interface: "wlan1"
+    #     wlan_device: "brostrend"
+    #     wifi_mode: "5GHz"
+    #     ap_subnet: "192.168.0.0/24"
+    #     ap_router_ip: "192.168.0.1"
+    #     dhcp_start_ip: "192.168.0.10"
+    #     dhcp_end_ip: "192.168.0.200"
+    #     country_code: "NL"
+    #     SSID: "PaiFi"
+    #     password: "Pai@Almere"
+    #     web_dir: /var/www/html
     - name: Mount Attached Disks
       include_role:
         name: mount-disks
@@ -74,7 +74,7 @@
         - name: Seagate
           uuid: 9C4AD6B64AD68C80
           fstype: ntfs
-    - name: Pip Install dependencies for docker and docker-compose
+    - name: Pip Install dependencies for docker
       include_role:
         name: pip-install-docker-deps
     - name: Install docker
@@ -82,12 +82,12 @@
         name: docker
       vars:
         docker_user: pi
-    - name: Install docker-compose
-      include_role:
-        name: docker-compose
-      vars:
-        # https://github.com/docker/compose/releases
-        docker_compose_version: v2.18.1
+    # - name: Install docker-compose
+    #   include_role:
+    #     name: docker-compose
+    #   vars:
+    #     # https://github.com/docker/compose/releases
+    #     docker_compose_version: v2.18.1
   
   post_tasks:
     - name: Check if reboot required
