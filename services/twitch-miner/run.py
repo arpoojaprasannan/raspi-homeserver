@@ -17,6 +17,6 @@ twitch_miner.mine(
     [
         "itzu_gaming",
     ],
-    followers=True,
+    followers=False,
     followers_order=FollowersOrder.DESC
 )

@@ -4,6 +4,10 @@ services:
     image: "servercontainers/samba:latest"
     restart: "unless-stopped"
     container_name: "samba"
+    networks:
+      samba:
+      wirehole:
+        ipv4_address: 10.2.0.123
     ports:
       - "137:137/udp"
       - "138:138/udp"
@@ -25,3 +29,9 @@ services:
 
       SAMBA_VOLUME_CONFIG_public: "[PiFlix]; path=/shares/Seagate; valid users = dhananjai, pooja; guest ok = no; read only = no; browseable = yes; force group = home"
       # SAMBA_VOLUME_CONFIG_public_ro: "[PiFlix ReadOnly]; path=/shares/Seagate; guest ok = yes; read only = yes; browseable = yes; force group = home"
+
+networks:
+  samba:
+  wirehole:
+    name: wirehole_dns-net
+    external: true

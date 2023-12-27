@@ -13,11 +13,11 @@ terraform {
 
 data "cloudflare_accounts" "this" {}
 data "cloudflare_zone" "this" {
-  name = local.zone
+  name = var.site_name
 }
 
 locals {
-  account_id = data.cloudflare_accounts.this.accounts[0].id
-  zone       = var.site_name
   zone_id    = data.cloudflare_zone.this.id
+  zone       = data.cloudflare_zone.this.name
+  account_id = data.cloudflare_accounts.this.accounts[0].id
 }

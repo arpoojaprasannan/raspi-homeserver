@@ -1,4 +1,6 @@
 ssid: "PaiSpot"
-static_ip: "192.168.2.222"
+password: ""
+wired_ip: "192.168.2.220"
+wireless_ip: "192.168.2.222"
 router_ip: "192.168.2.254"
 domain_name_servers: "1.1.1.1,8.8.8.8"

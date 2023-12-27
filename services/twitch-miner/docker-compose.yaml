@@ -1,18 +1,15 @@
 version: "3.9"
 services:
   twitch-miner:
-    image: tkdalex/twitch-channel-points-miner-v2
+    image: rdavidoff/twitch-channel-points-miner-v2
     container_name: twitch-miner
     environment:
       - TERM=xterm-256color
     volumes:
-      - twich-miner-data/cookies:/usr/src/app/cookies
-      - twich-miner-data/run.py:/usr/src/app/run.py:ro
+      - ./cookies:/usr/src/app/cookies
+      - ./run.py:/usr/src/app/run.py:ro
     ports:
       - 5000:5000
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
-
-volumes:
-  twich-miner-data:

@@ -1,4 +1,5 @@
 - Adlists = https://firebog.net/
+- https://v.firebog.net/hosts/lists.php
 - Whitelist = https://discourse.pi-hole.net/t/commonly-whitelisted-domains/212
 ```bash
 # youtube history

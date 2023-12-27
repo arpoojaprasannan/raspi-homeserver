@@ -1,3 +1,9 @@
-# sudo nmcli c mod "{{ ssid }}" ipv4.addresses {{ static_ip }}/24 ipv4.method manual
-# sudo nmcli con mod "{{ ssid }}" ipv4.gateway {{ router_ip }}
-# sudo nmcli con mod "{{ ssid }}" ipv4.dns "{{ domain_name_servers }}"
+# sudo nmcli con add ifname wlan0 type wifi con-name {{ ssid }} ssid {{ ssid }} 802-11-wireless-security.key-mgmt wpa-psk 802-11-wireless-security.psk '{{ password }}' ip4 {{ wireless_ip }}/24 gw4 {{ router_ip }}
+# sudo nmcli con mod {{ ssid }} ipv4.dns {{ domain_name_servers }}
+# sudo nmcli con up {{ ssid }}
+
+# sudo nmcli con add ifname eth0 type ethernet con-name "wired" ip4 {{ wired_ip }}/24 gw4 {{ router_ip }}
+# sudo nmcli con mod "wired" ipv4.dns {{ domain_name_servers }}
+# sudo nmcli con up "wired"
+
+# sudo nmcli con delete preconfigured
