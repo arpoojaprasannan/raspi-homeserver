@@ -82,6 +82,11 @@
         name: docker
       vars:
         docker_user: pi
+    - name: Install Brave browser
+      include_role:
+        name: brave
+      vars:
+        docker_user: pi
     # - name: Install docker-compose
     #   include_role:
     #     name: docker-compose

@@ -1,0 +1,29 @@
+---
+- name: Ensure brave dependencies are installed.
+  apt:
+    name:
+      - apt-transport-https
+    state: present
+    force_apt_get: true
+
+- name: Add Brave apt key.
+  get_url:
+    url: "https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg"
+    dest: /usr/share/keyrings/brave-browser-archive-keyring.gpg
+    mode: "0644"
+    force: true
+  register: add_repository_key
+  ignore_errors: true
+
+- name: Add Brave repository.
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"
+    state: present
+    update_cache: true
+
+- name: Install Brave package
+  apt:
+    name:
+      - brave-browser
+    state: present
+    force_apt_get: true
